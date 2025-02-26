@@ -1,0 +1,26 @@
+# Source files
+src/
+tsconfig.json
+
+# Development & debug files
+.chrome-data/
+grok-cookies.json
+debug-*.ts
+.vscode/
+*.log
+
+# Build tools
+.github/
+.gitignore
+
+# Test files
+**/*.test.ts
+**/*.spec.ts
+**/__tests__/
+coverage/
+
+# Misc
+.DS_Store
+node_modules/
+.env
+.env.* 

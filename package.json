@@ -1,0 +1,64 @@
+{
+	"name": "grok-api",
+	"version": "1.1.1",
+	"description": "TypeScript client for interacting with Grok AI with automated login and cookie management",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist/**/*",
+		"README.md",
+		"LICENSE"
+	],
+	"scripts": {
+		"build": "tsc",
+		"prepare": "npm run build",
+		"start": "node dist/index.js",
+		"dev": "ts-node src/index.ts",
+		"clean": "rimraf dist",
+		"example": "ts-node examples/test-streaming.ts",
+		"prepublishOnly": "npm run clean && npm run build",
+		"test": "echo \"No tests yet\""
+		
+	},
+	"keywords": [
+		"grok",
+		"ai",
+		"api",
+		"client",
+		"x.ai",
+		"chatbot",
+		"automation"
+	],
+	"author": "TKat",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tkattkat/grok-api-client.git"
+	},
+	"bugs": {
+		"url": "https://github.com/tkattkat/grok-api-client/issues"
+	},
+	"homepage": "https://github.com/tkattkat/grok-api-client#readme",
+	"dependencies": {
+		"got-scraping": "^3.2.15",
+		"patchright": "^1.50.1",
+		"tough-cookie": "^4.1.3"
+	},
+	"devDependencies": {
+		"@types/node": "^20.10.5",
+		"@types/tough-cookie": "^4.0.5",
+		"puppeteer": "^24.3.0",
+		"rimraf": "^5.0.10",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.3.3"
+	},
+	"peerDependencies": {
+		"chrome-launcher": "^0.15.2"
+	},
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
