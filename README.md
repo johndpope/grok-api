@@ -18,13 +18,13 @@ A TypeScript client for interacting with Grok AI. This client provides automated
 
 ```bash
 # Using npm
-npm install grok-api
+npm install grok-api-ts
 
 # Using pnpm
-pnpm add grok-api
+pnpm add grok-api-ts
 
 # Using yarn
-yarn add grok-api
+yarn add grok-api-ts
 ```
 
 ## Usage
@@ -32,9 +32,9 @@ yarn add grok-api
 ### Basic Usage
 
 ```typescript
-import GrokAPI from 'grok-api';
+import GrokAPI from 'grok-api-ts';
 // Or use named import
-// import { GrokAPI } from 'grok-api';
+// import { GrokAPI } from 'grok-api-ts';
 
 async function main() {
   // Initialize the Grok API (will prompt for login if needed)
@@ -77,7 +77,7 @@ The client handles authentication automatically:
 ### Advanced Usage: Custom Options
 
 ```typescript
-import GrokAPI from 'grok-api';
+import GrokAPI from 'grok-api-ts';
 
 async function main() {
   const grokApi = new GrokAPI();
@@ -114,7 +114,7 @@ main();
 The client supports streaming responses, allowing you to process Grok's response as it's being generated:
 
 ```typescript
-import GrokAPI from 'grok-api';
+import GrokAPI from 'grok-api-ts';
 
 async function main() {
   const grokApi = new GrokAPI();
@@ -151,7 +151,7 @@ main();
 The client automatically handles authentication errors:
 
 ```typescript
-import GrokAPI from 'grok-api';
+import GrokAPI from 'grok-api-ts';
 
 async function main() {
   const grokApi = new GrokAPI();
@@ -197,7 +197,7 @@ import GrokAPI, {
   GrokSendMessageOptions, 
   ParsedGrokResponse, 
   GrokModelResponse 
-} from 'grok-api';
+} from 'grok-api-ts';
 
 // Use types in your code
 const options: GrokSendMessageOptions = {
