@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(npm install:*)",
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(curl:*)",
+      "Bash(git -C /Users/johndpope/Documents/GitHub/atlas-ai-conversations-hub diff package.json)",
+      "Bash(git -C /Users/johndpope/Documents/GitHub/atlas-ai-conversations-hub diff vite.config.ts)",
+      "Bash(git -C /Users/johndpope/Documents/GitHub/atlas-ai-conversations-hub status)"
+    ],
+    "deny": []
+  }
+}

@@ -3,6 +3,7 @@
 	"version": "1.1.2",
 	"description": "TypeScript client for interacting with Grok AI with automated login and cookie management",
 	"main": "dist/index.js",
+	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"files": [
 		"dist/**/*",
