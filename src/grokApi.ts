@@ -359,7 +359,7 @@ export class GrokAPI {
     };
   }
 
-  private parseGrokResponse(responseBody: string): ParsedGrokResponse {
+  public parseGrokResponse(responseBody: string): ParsedGrokResponse {
     const jsonLines = responseBody.trim().split('\n');
     
     let fullMessage = '';

@@ -2,3 +2,5 @@ node_modules/
 dist/
 .env 
 grok-cookies.json
+.chrome-data/
+.vscode/
