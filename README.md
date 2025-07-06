@@ -266,10 +266,200 @@ The `ParsedGrokResponse` includes:
 - `modelResponse`: Detailed model response object
 - `conversationId`: ID of the conversation
 
+## Mock Server for Development
+
+This library includes a comprehensive mock server that simulates the Grok API endpoints without requiring authentication. This is perfect for development, testing, and integration work.
+
+### Quick Start with Mock Server
+
+1. **Start the mock server:**
+   ```bash
+   npm run mock-server
+   # or
+   pnpm run mock-server
+   ```
+
+2. **Use the MockGrokAPI class:**
+   ```typescript
+   import { MockGrokAPI } from 'grok-api-ts';
+
+   const mockGrokApi = new MockGrokAPI('http://localhost:3001', true);
+
+   // Check if mock server is running
+   const isRunning = await mockGrokApi.checkMockServer();
+
+   // Send message (no authentication needed)
+   const response = await mockGrokApi.sendMessage({
+     message: "Hello, mock Grok!"
+   });
+
+   console.log(response.fullMessage);
+   ```
+
+3. **Run the included mock example:**
+   ```bash
+   npm run mock-example
+   # or
+   pnpm run mock-example
+   ```
+
+### Mock Server Features
+
+- **No Authentication Required**: Skip complex browser-based login
+- **Realistic Streaming**: Token-by-token response streaming simulation
+- **Conversation Management**: Maintains conversation state
+- **Image Generation Support**: Simulates image generation with progress tracking
+- **File Upload Support**: Mock file attachment handling
+- **Follow-up Suggestions**: Dynamic conversation prompts
+- **Error Handling**: Proper error responses and status codes
+- **CORS Support**: Configured for cross-origin requests
+
+### Mock Server Endpoints
+
+- `POST /rest/app-chat/conversations/new` - Create new conversation
+- `POST /rest/app-chat/conversations/:id/responses` - Continue conversation
+- `POST /rest/app-chat/upload-file` - Upload file attachments
+- `GET /health` - Health check endpoint
+
+### Switching Between Real and Mock APIs
+
+```typescript
+// For development/testing
+const mockGrokApi = new MockGrokAPI('http://localhost:3001', true);
+
+// For production
+const realGrokApi = new GrokAPI();
+await realGrokApi.login('username', 'password');
+
+// Use the same interface for both
+const response = await grokApi.sendMessage({
+  message: "Hello Grok!"
+});
+```
+
+## Grok API Response Formats
+
+The library handles multiple response formats from the Grok API:
+
+### Standard Text Response
+
+```typescript
+{
+  fullMessage: string;           // Complete response text
+  responseId: string;            // Unique response identifier
+  title?: string;                // Conversation title
+  conversationId?: string;       // Conversation identifier
+  metadata?: {
+    followUpSuggestions: string[];      // Suggested follow-up questions
+    feedbackLabels: string[];           // Available feedback options
+    toolsUsed: object;                  // Tools used in response
+  };
+  modelResponse?: {
+    message: string;                    // Response text
+    webSearchResults?: Array<{          // Web search results (if enabled)
+      title: string;
+      url: string;
+      snippet: string;
+    }>;
+    generatedImageUrls?: string[];      // Generated image URLs
+    imageAttachments?: any[];           // Image attachments
+    fileAttachments?: any[];            // File attachments
+    // ... additional metadata
+  };
+}
+```
+
+### Streaming Response Format
+
+When using streaming, the response is built incrementally:
+
+```typescript
+// Token-by-token streaming
+onToken: (token: string) => void;
+
+// Complete response when finished
+onComplete: (response: ParsedGrokResponse) => void;
+
+// Error handling
+onError: (error: any) => void;
+```
+
+### Image Generation Response
+
+When image generation is enabled:
+
+```typescript
+{
+  fullMessage: "I generated images with the prompt: '...'";
+  modelResponse: {
+    generatedImageUrls: [
+      "https://example.com/generated-image.jpg"
+    ];
+    // ... other properties
+  };
+  metadata: {
+    followUpSuggestions: [
+      { 
+        properties: { messageType: "IMAGE_GEN", followUpType: "STYLE" },
+        label: "artistic atmosphere"
+      }
+      // ... more suggestions
+    ];
+  };
+}
+```
+
+### Error Response Format
+
+```typescript
+{
+  error: string;                 // Error message
+  statusCode?: number;           // HTTP status code
+  details?: any;                 // Additional error details
+}
+```
+
+## Configuration Options
+
+### GrokSendMessageOptions
+
+```typescript
+interface GrokSendMessageOptions {
+  message: string;                    // Required: The message to send
+  conversationId?: string;            // Conversation ID ('new' for new conversation)
+  parentResponseId?: string;          // Parent response ID for threading
+  disableSearch?: boolean;            // Disable web search (default: false)
+  enableImageGeneration?: boolean;    // Enable image generation (default: true)
+  customInstructions?: string;        // Custom instructions for the response
+  forceConcise?: boolean;             // Request concise response (default: false)
+  imageAttachments?: any[];           // Image attachments
+  isReasoning?: boolean;              // Enable reasoning mode (default: false)
+}
+```
+
+### MockGrokAPI Constructor
+
+```typescript
+constructor(
+  mockBaseUrl: string = 'http://localhost:3001',  // Mock server URL
+  skipAuth: boolean = true                        // Skip authentication
+)
+```
+
+## Development Benefits
+
+1. **Faster Development**: No authentication delays
+2. **Offline Testing**: Work without internet connection
+3. **Predictable Responses**: Consistent mock responses for testing
+4. **Rate Limit Free**: No API rate limits during development
+5. **Easy Debugging**: Full control over response timing and content
+6. **Image Generation Testing**: Simulate image generation workflows
+7. **File Upload Testing**: Test file attachment handling
+
 ## Requirements
 
 - Node.js 14+
-- Chrome browser installed (used by patchright for authentication)
+- Chrome browser installed (used by patchright for authentication) - *Not required for mock server*
 
 ## License
 
